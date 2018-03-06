@@ -13,6 +13,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
@@ -259,6 +261,10 @@ public abstract class VbTest implements TestUtil {
       List<Protocol> protocols = new ArrayList<>();
       protocols.add(Protocol.HTTP_1_1);
       protocols.add(Protocol.HTTP_2);
+
+
+      final Logger logger = Logger.getLogger(okhttp3.internal.http2.Http2.class.getName());
+      logger.setLevel(Level.FINE);
 
       OkHttpClient okHttpClient = builder
           .connectionSpecs(Collections.singletonList(spec))
